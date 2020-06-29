@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>EventListener</h1>
+    <div id="my"></div>
+    <button>Click</button>
+    <script>
+        const myButton = document.querySelector('button')
+        myButton.addEventListener('click', function(event){
+            event.preventDefault()
+            console.log(event)
+
+            const my = document.querySelector('#my')
+            my.innerHTML = '<h1>Q</h1>'
+        })
+
+        myButton.addEventListener('click', function(){
+            console.log('click')
+        })
+
+        myButton.addEventListener('mouseover', function(){
+            myButton.innerHTML = '마우스 저리가'
+        })
+
+        myButton.addEventListener('mouseout', function(){
+            myButton.innerHTML = 'click'
+        })
+
+
+    </script>
+</body>
+</html>

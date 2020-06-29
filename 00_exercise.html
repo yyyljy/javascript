@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>JsonPlace</h1>
+    <div id="my-json">
+        
+    </div>
+
+    <script>
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+        .then(response => {
+            response.data.forEach(data => {
+                // data = response,data
+                // myTitle = data.title
+                const myTitle = data.title
+                // ptag 생성해주는 pTag
+                const pTag = document.createElement('p')
+                // 그렇게 생성된 ptag의 text = myTitle
+                // <p>각각의 제목들</p>
+                pTag.innerText = myTitle
+                // id="my-json"인 div에 추가 한다.
+                const myJson = document.querySelector('#my-json')
+                myJson.append(pTag)
+            });
+        })
+        .catch(error => console.log(error))
+    </script>
+</body>
+</html>

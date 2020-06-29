@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<h1>상세 페이지</h1>
+<hr>
+
+
+<p>작성자 | {{ article.user.username }}</p>
+<p>{{ article.pk }}번째 글</p>
+<h2>{{ article.title }}</h2>
+<h3>{{ article.content }}</h3>
+
+{% if article.image %}
+  <img src="{{ article.image_thumbnail.url }}" alt="{{ article.image }}"> 
+{% endif %}
+
+{% include 'articles/_like.html' %}
+
+<hr>
+<ul>
+  {% for comment in comments %}
+    <li>
+      {{ comment.user.username }}
+      {{ comment.content }}
+    </li>
+    <!-- 2개 이상의 값을 넘겨주고자 할 때 순서 주의 -->
+    {% if request.user == comment.user %}
+      <form action="{% url 'articles:comment_delete' article.pk comment.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="댓글 삭제">
+      </form>
+    {% endif %}
+
+  {% empty %}
+    <p>댓글이 없습니다.</p>  
+  {% endfor %}
+  
+</ul>
+<hr>
+<h3>댓글 작성</h3>
+{% if user.is_authenticated %}
+  <form action="{% url 'articles:comment_create' article.pk %}" method="POST">
+    {% csrf_token %}
+    {{ comment_form }}
+    <input type="submit" value="댓글생성">
+  </form>
+{% else %}
+  <a href="{% url 'accounts:login' %}">[댓글을 작성하시려면 로그인을 해 주세요.]</a>
+{% endif %}
+<hr>
+
+{% if request.user == article.user %}
+  <a href="{% url 'articles:index' %}">[back]</a>
+  <a href="{% url 'articles:update' article.pk %}">[UPDATE]</a>
+  <form action="{% url 'articles:delete' article.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="DELETE" class="btn btn-primary">
+  </form>
+{% else %}
+  <a href="{% url 'articles:index' %}">[back]</a>
+{% endif %}
+
+<script src="{% static 'articles/js/like.js' %}"></script>
+{% endblock %}

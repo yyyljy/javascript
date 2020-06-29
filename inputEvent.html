@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>asdawqwe</h1>
+    <form action="">
+        <input type="text" class="my-input">
+        <input type="submit" value="제출">
+    </form>
+    <script>
+        const myInput = document.querySelector('.my-input')
+        myInput.addEventListener('input', function(event){
+            console.log(event.target.value)
+        })
+
+        const myH = document.querySelector('h1')
+        myH.addEventListener('click', function(event){
+            event.target.style.color = 'blue'
+        })
+    </script>
+</body>
+</html>

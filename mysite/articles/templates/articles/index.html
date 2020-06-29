@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="row justify-content-center">
+  {% for article in articles %}
+    <div class="card col-3 m-3" style="width: 18rem;">
+      <!-- Card Image -->
+      {% if article.image %}
+        <img src="{{ article.image_thumbnail.url }}" class="card-img-top" alt="{{ article.image }}" style="height: 10rem;">
+      {% else %}
+        <img src="{% static 'articles/images/noimage.jpeg' %}" class="card-img-top" alt="이미지 없음">
+      {% endif %}
+      
+      <!-- Card Body -->
+      <div class="card-body">
+        <!-- Card Title -->
+        <a href="{% url 'articles:detail' article.pk %}"><h5 class="card-title btn-outline-light text-dark">{{ article.title }}</h5></a>
+        <hr>
+        <!-- Article User -->
+        <p>작성자 : {{ article.user.username }}</p>
+
+        {% include 'articles/_like.html' %}
+
+      </div>
+    </div>
+  {% endfor %}
+  
+</div>
+<hr>
+  {% for num in articles.paginator.page_range %}
+    <a href="{% url 'articles:index' %}?page={{ num }}">
+      {{ num }}
+    </a>
+  {% endfor %}
+  <script src="{% static 'articles/js/like.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Random Dog</h1>
+    <button>Give Me Dog</button>
+    <div id="my-dog">
+
+    </div>
+    <script>
+        const dogBtn = document.querySelector('button')
+        dogBtn.addEventListener('click', function(event) {     
+            console.log(event)
+            axios.get('https://dog.ceo/api/breeds/image/random')
+            .then(response => {
+                console.log(this)
+                const myDog = document.querySelector('#my-dog')
+                const imgTag = document.createElement('img')
+                imgTag.src = response.data.message
+                imgTag.width = 500
+                myDog.append(imgTag)
+            })
+        })
+    </script>
+</body>
+</html>
